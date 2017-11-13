@@ -6,6 +6,8 @@ exports.up = function(knex, Promise) {
     table.string('unit')
     table.integer('quantity')
     table.boolean('perishable')
+    table.integer('category').notNullable().defaultsTo(99)
+    table.foreign('category').references('food_categories.id')
     table.timestamps(true, true)
   })
 }
