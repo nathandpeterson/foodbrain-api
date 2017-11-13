@@ -26,4 +26,27 @@ function destroyFood(id){
   return knex('foods').where({id:id}).del()
 }
 
-module.exports = {getAllFoods, getOneFood, createFood, updateFood, destroyFood}
+function getAllRecipes(){
+  return knex('recipes')
+}
+
+function createRecipe(data){
+  return knex('recipes').insert(data)
+}
+
+function getOneRecipe(id){
+  return knex('recipes').where({id:id}).first()
+}
+
+function updateRecipe(id, data){
+  return knex('recipes')
+  .update(data)
+  .where({id:id})
+  .returning('*')
+}
+
+function destroyRecipe(id){
+  return knex(recipes).where({id:id}).del()
+}
+
+module.exports = {getAllFoods, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, createRecipe, getOneRecipe, updateRecipe, destroyRecipe}

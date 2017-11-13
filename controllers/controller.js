@@ -29,4 +29,29 @@ function destroyFood(req, res, next) {
   .then(response => res.status(200).json(response))
 }
 
-module.exports = {home, getAllFoods, getOneFood, createFood, updateFood, destroyFood}
+function getAllRecipes(req, res, next) {
+  models.getAllRecipes()
+  .then(response => res.status(200).json(response))
+}
+
+function createRecipe(req, res, next) {
+  models.createRecipe(req.body)
+  .then(response => res.status(201).json(response))
+}
+
+function getOneRecipe(req, res, next) {
+  models.getOneRecipe(req.params.id)
+  .then(response => res.status(200).json(response))
+}
+
+function updateRecipe(req, res, next){
+  models.updateRecipe(req.params.id, req.body)
+  .then(response => res.status(201).json(response))
+}
+
+function destroyRecipe(req, res, next){
+  models.destroyRecipe(req.params.id)
+  .then(response => res.status(200).json(response))
+}
+
+module.exports = {home, getAllFoods, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, getOneRecipe, createRecipe, updateRecipe, destroyRecipe}
