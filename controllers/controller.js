@@ -5,8 +5,28 @@ function home (req, res, next) {
 }
 
 function getAllFoods(req, res, next) {
-  let data = models.getAllFoods()
+  models.getAllFoods()
   .then(response => res.status(200).json(response))
 }
 
-module.exports = {home, getAllFoods}
+function getOneFood(req, res, next) {
+  models.getOneFood(req.params.id)
+  .then(response => res.status(200).json(response))
+}
+
+function createFood(req, res, next) {
+  models.createFood(req.body)
+  .then(response => res.status(201).json(response))
+}
+
+function updateFood(req, res, next){
+  models.updateFood(req.params.id, req.body)
+  .then(response => res.status(200).json(response))
+}
+
+function destroyFood(req, res, next) {
+  models.destroyFood(req.params.id)
+  .then(response => res.status(200).json(response))
+}
+
+module.exports = {home, getAllFoods, getOneFood, createFood, updateFood, destroyFood}

@@ -7,5 +7,23 @@ function getAllFoods() {
   return knex('foods')
 }
 
+function getOneFood(id){
+  return knex('foods').where({id:id}).first()
+}
 
-module.exports = {getAllFoods}
+function createFood(data){
+  return knex('foods').insert(data)
+}
+
+function updateFood(id, data){
+  return knex('foods')
+  .update(data)
+  .where({id:id})
+  .returning('*')
+}
+
+function destroyFood(id){
+  return knex('foods').where({id:id}).del()
+}
+
+module.exports = {getAllFoods, getOneFood, createFood, updateFood, destroyFood}
