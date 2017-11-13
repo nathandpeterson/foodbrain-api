@@ -5,12 +5,17 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "knex" : "knex"
+    "knex": "knex",
+    "run": "node main.js"
   },
   "author": "Nathan Peterson",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
     "knex": "^0.14.0",
+    "morgan": "^1.9.0",
     "pg": "^7.4.0"
   }
 }
