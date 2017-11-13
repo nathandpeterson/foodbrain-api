@@ -17,5 +17,9 @@ exports.seed = function(knex, Promise) {
         {id: 12, name: 'ground beef', quantity: 1, unit: 'pound', perishable: true, category: 3},
         {id: 13, name: 'cinnamon', quantity: 1, unit: 'jar', perishable: false, category: 7}
       ])
+    }).then(() => {
+      return knex.raw(
+        `SELECT setval('foods_id_seq', (SELECT MAX(id) FROM foods));`
+      )
     })
 }
