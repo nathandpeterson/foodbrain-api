@@ -1,7 +1,10 @@
-
+const path = require('path')
+const env = process.env.NODE_ENV || 'development'
+const db = path.join(__dirname, '..', 'db', `${env}.json`)
+const knex = require('../db/db.js')
 
 function getAllFoods() {
-  return 'lots of foods!!!!!'
+  return knex('foods')
 }
 
 
