@@ -4,8 +4,10 @@ exports.up = function(knex, Promise) {
     table.increments()
     table.string('category').notNullable()
   })
-};
+}
 
 exports.down = function(knex, Promise) {
   return knex.schema.dropTable('food_categories')
-};
+}
+
+// query to select particular food types select name, quantity FROM foods JOIN food_categories on food_categories.id = foods.category WHERE foods.category = 6;
