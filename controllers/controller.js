@@ -9,5 +9,4 @@ function getAllFoods(req, res, next) {
   .then(response => res.status(200).json(response))
 }
 
-
 module.exports = {home, getAllFoods}
