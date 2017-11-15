@@ -16,7 +16,12 @@ exports.seed = function(knex, Promise) {
         {id: 11, name: 'monterey jack cheese'},
         {id: 12, name: 'cheddar cheese'},
         {id: 13, name: 'medium onion'},
-        {id: 14, name: 'flour tortillas'}
+        {id: 14, name: 'flour tortillas'},
+        {id: 15, name: 'salmon'},
+        {id: 16, name: 'white wine'},
+        {id: 17, name: 'honey'},
+        {id: 18, name: 'balsamic vinegar'},
+        {id: 19, name: 'dijon mustard'}
       ])
     }).then(() => {
       return knex.raw(

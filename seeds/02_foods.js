@@ -14,8 +14,12 @@ exports.seed = function(knex, Promise) {
         {id: 9, name: 'cheez-its', perishable: false, category: 6},
         {id: 10, name: 'dill pickles', perishable: false, category: 2},
         {id: 11, name: 'yellow onions', perishable: true, category: 2},
-        {id: 12, name: 'ground beef', perishable: true, category: 3},
-        {id: 13, name: 'cinnamon', perishable: false, category: 7}
+        {id: 12, name: 'salmon', perishable: true, category: 3},
+        {id: 13, name: 'cinnamon', perishable: false, category: 7},
+        {id:14, name: 'chili powder', perishable: false, category: 7},
+        {id:15, name: 'garlic', perishable: true, category: 7},
+        {id:16, name: 'salt', perishable: true, category: 7},
+        {id:17, name: 'pepper', perishable: true, category: 7}
       ])
     }).then(() => {
       return knex.raw(

@@ -43,6 +43,13 @@ const sortBy = {
   }
 }
 
+function searchFood(ingredient){
+  let promises = [knex('foods').where({name: ingredient.name}), knex('ingredients')]
+  return knex('foods')
+    .join('ingredients', 'foods.name', 'ingredients.name')
+    .select('ingredients.id')
+}
+
 function getAllRecipes(){
   return knex('recipes')
 }
@@ -52,7 +59,9 @@ function createRecipe(data){
 }
 
 function getOneRecipe(id){
-  return knex('recipes').where({id:id}).first()
+  const promises = [knex('recipes').where({id:id}).first(),
+  knex('ingredients'), knex('ingredient_recipe')]
+  return Promise.all(promises)
 }
 
 function updateRecipe(id, data){
@@ -66,4 +75,4 @@ function destroyRecipe(id){
   return knex(recipes).where({id:id}).del()
 }
 
-module.exports = {getAllFoods, sortBy, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, createRecipe, getOneRecipe, updateRecipe, destroyRecipe}
+module.exports = {getAllFoods, sortBy, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, createRecipe, getOneRecipe, updateRecipe, destroyRecipe, searchFood}

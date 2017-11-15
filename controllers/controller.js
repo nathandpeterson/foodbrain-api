@@ -21,6 +21,7 @@ function createFood(req, res, next) {
 }
 
 function updateFood(req, res, next){
+  console.log(req.body)
   models.updateFood(req.params.id, req.body)
   .then(response => res.status(200).json(response))
 }
@@ -28,6 +29,13 @@ function updateFood(req, res, next){
 function destroyFood(req, res, next) {
   models.destroyFood(req.params.id)
   .then(response => res.status(200).json(response))
+}
+
+function searchFood(req, res, next) {
+  models.searchFood(req.body)
+  .then(response => {
+    res.status(200).json(response)
+  })
 }
 
 function getAllRecipes(req, res, next) {
@@ -55,4 +63,4 @@ function destroyRecipe(req, res, next){
   .then(response => res.status(200).json(response))
 }
 
-module.exports = {getAllFoods, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, getOneRecipe, createRecipe, updateRecipe, destroyRecipe}
+module.exports = {getAllFoods, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, getOneRecipe, createRecipe, updateRecipe, destroyRecipe, searchFood}

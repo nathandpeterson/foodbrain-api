@@ -1,4 +1,4 @@
 
-function buildIngredientList(recipe){
-    
+function checkIngredient(ingredients){
+  
 }
