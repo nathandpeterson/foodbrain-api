@@ -2,6 +2,7 @@ const path = require('path')
 const env = process.env.NODE_ENV || 'development'
 const db = path.join(__dirname, '..', 'db', `${env}.json`)
 const knex = require('../db/db.js')
+const sorter = require('./sorter.js')
 
 function getAllFoods() {
   return knex('foods')
@@ -24,6 +25,22 @@ function updateFood(id, data){
 
 function destroyFood(id){
   return knex('foods').where({id:id}).del()
+}
+
+const sortBy = {
+  perishable() {
+    return knex('foods').where({perishable: true})
+  },
+  new(){
+    return knex('*').from('foods').orderBy('created_at', 'desc')
+  },
+  old(){
+    return knex('*').from('foods').orderBy('created_at', 'asc')
+  },
+  categories(){
+    return knex('foods')
+      .then(response => sorter.categories(response))
+  }
 }
 
 function getAllRecipes(){
@@ -49,4 +66,4 @@ function destroyRecipe(id){
   return knex(recipes).where({id:id}).del()
 }
 
-module.exports = {getAllFoods, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, createRecipe, getOneRecipe, updateRecipe, destroyRecipe}
+module.exports = {getAllFoods, sortBy, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, createRecipe, getOneRecipe, updateRecipe, destroyRecipe}

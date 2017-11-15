@@ -1,12 +1,13 @@
 const models = require('../models/models.js')
 
-function home (req, res, next) {
-  res.status(200).json({message: 'go to /foods for foods'})
-}
-
 function getAllFoods(req, res, next) {
-  models.getAllFoods()
-  .then(response => res.status(200).json(response))
+  if(req.body.sortBy) {
+    models.sortBy[req.body.sortBy]()
+    .then(response => res.status(200).json(response))
+  } else {
+    models.getAllFoods()
+    .then(response => res.status(200).json(response))
+  }
 }
 
 function getOneFood(req, res, next) {
@@ -54,4 +55,4 @@ function destroyRecipe(req, res, next){
   .then(response => res.status(200).json(response))
 }
 
-module.exports = {home, getAllFoods, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, getOneRecipe, createRecipe, updateRecipe, destroyRecipe}
+module.exports = {getAllFoods, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, getOneRecipe, createRecipe, updateRecipe, destroyRecipe}
