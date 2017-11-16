@@ -55,7 +55,7 @@ function getAllRecipes(){
 }
 
 function createRecipe(data){
-  return knex('recipes').insert(data)
+  return knex('recipes').insert(data).returning('*')
 }
 
 function getOneRecipe(id){
