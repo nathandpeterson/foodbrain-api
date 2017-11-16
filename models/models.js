@@ -76,7 +76,19 @@ function destroyRecipe(id){
 }
 
 function createIngredient(data){
-  console.log(data)
+  return knex('ingredients').where({name: data.ingredient.name})
+    .then(result => {
+      if(!result.length) {
+        return knex('ingredients').insert({name:data.ingredient.name}).returning('*')
+          .then(addedIngredient => {
+            console.log('!!!!!!!!!!!!--> addedIngredient',addedIngredient)
+            console.log('!!!!!!!!!!!!--> data', data)
+            return knex('ingredient_recipe').insert({recipe_id: data.id, ingredient_id: addedIngredient[0].id, quantity: data.ingredient.quantity}, '*')
+          })
+      } else {
+        return knex('ingredient_recipe').insert({recipe_id: data.id, ingredient_id: result[0].id, quantity: data.ingredient.quantity}, '*')
+      }
+    })
 }
 
 module.exports = {getAllFoods, sortBy, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, createRecipe, getOneRecipe, updateRecipe, destroyRecipe, searchFood, createIngredient}
