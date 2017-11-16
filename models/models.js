@@ -72,7 +72,11 @@ function updateRecipe(id, data){
 }
 
 function destroyRecipe(id){
-  return knex(recipes).where({id:id}).del()
+  return knex('recipes').where({id:id}).del()
 }
 
-module.exports = {getAllFoods, sortBy, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, createRecipe, getOneRecipe, updateRecipe, destroyRecipe, searchFood}
+function createIngredient(data){
+  console.log(data)
+}
+
+module.exports = {getAllFoods, sortBy, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, createRecipe, getOneRecipe, updateRecipe, destroyRecipe, searchFood, createIngredient}

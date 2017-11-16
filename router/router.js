@@ -12,6 +12,8 @@ router.post('/recipes', ctrl.createRecipe)
 router.get('/recipes/:id', ctrl.getOneRecipe)
 router.put('recipes/:id', ctrl.updateRecipe)
 router.put('/recipes', ctrl.searchFood)
-router.delete('recipes/:id', ctrl.destroyRecipe)
+router.delete('/recipes/:id', ctrl.destroyRecipe)
+router.post('/ingredients', ctrl.createIngredient)
+router.get('/ideas/:search', ctrl.getIdeas)
 
 module.exports = router
