@@ -76,4 +76,11 @@ function getIdeas(req, res, next){
   })
 }
 
-module.exports = {getAllFoods, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, getOneRecipe, createRecipe, updateRecipe, destroyRecipe, searchFood, createIngredient, getIdeas}
+function getPerishable(req, res, next){
+  models.getPerishable()
+    .then(res => {
+      res.status(200).json(response)
+    })
+}
+
+module.exports = {getAllFoods, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, getOneRecipe, createRecipe, updateRecipe, destroyRecipe, searchFood, createIngredient, getIdeas, getPerishable}
