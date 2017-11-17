@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "knex": "knex",
-    "run": "node main.js"
+    "start": "node main.js"
   },
   "author": "Nathan Peterson",
   "license": "ISC",
