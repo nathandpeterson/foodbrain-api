@@ -4,7 +4,6 @@
   "description": "food app backend",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "knex": "knex",
     "run": "node main.js"
   },
