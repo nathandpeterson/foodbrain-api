@@ -50,8 +50,10 @@ function createRecipe(req, res, next) {
 }
 
 function getOneRecipe(req, res, next) {
-  models.getOneRecipe(req.params.id)
-    .then(response => res.status(200).json(response))
+    models.getOneRecipe(req.params.id)
+      .then(response => {
+        res.status(200).json(response)
+      })
 }
 
 function updateRecipe(req, res, next){
@@ -83,4 +85,12 @@ function getPerishable(req, res, next){
     })
 }
 
-module.exports = {getAllFoods, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, getOneRecipe, createRecipe, updateRecipe, destroyRecipe, searchFood, createIngredient, getIdeas, getPerishable}
+function searchForIngredients(req, res, next) {
+  models.searchForIngredients(req.body)
+    .then(matches => {
+      console.log(matches)
+      res.status(200).json(matches)
+    })
+}
+
+module.exports = {getAllFoods, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, getOneRecipe, createRecipe, updateRecipe, destroyRecipe, searchFood, createIngredient, getIdeas, getPerishable, searchForIngredients}

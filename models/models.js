@@ -58,10 +58,20 @@ function createRecipe(data){
   return knex('recipes').insert(data).returning('*')
 }
 
-function getOneRecipe(id){
-  const promises = [knex('recipes').where({id:id}).first(),
-  knex('ingredients'), knex('ingredient_recipe')]
+function getOneRecipe(searchID){
+  const promises = [knex('recipes').where({id : searchID}).first(),
+  knex('ingredients'), knex('ingredient_recipe').where({recipe_id: searchID})]
   return Promise.all(promises)
+    .then(dataForOneRecipe => {
+      [recipe, ingredients, ingredientRecipeJoin] = dataForOneRecipe
+      recipe.ingredients = []
+      ingredientRecipeJoin.forEach(ingredient => {
+        recipe.ingredients.push(ingredient)
+        let ingredientNameData = ingredients.find(ingredientName => ingredientName.id === ingredient.ingredient_id)
+        ingredient.name = ingredientNameData.name
+      })
+      return recipe
+    })
 }
 
 function updateRecipe(id, data){
@@ -84,8 +94,6 @@ function createIngredient(data){
       if(!result.length) {
         return knex('ingredients').insert({name:data.ingredient.name}).returning('*')
           .then(addedIngredient => {
-            // console.log('!!!!!!!!!!!!--> addedIngredient',addedIngredient)
-            // console.log('!!!!!!!!!!!!--> data', data)
             return knex('ingredient_recipe').insert({recipe_id: data.id, ingredient_id: addedIngredient[0].id, quantity: data.ingredient.quantity}, '*')
           })
       } else {
@@ -98,4 +106,23 @@ function getPerishable(){
   return knex('foods').where({perishable : true}, '*')
 }
 
-module.exports = {getAllFoods, sortBy, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, createRecipe, getOneRecipe, updateRecipe, destroyRecipe, searchFood, createIngredient, getPerishable}
+function searchForIngredients(recipeIngredients){
+  let promises = []
+  recipeIngredients.forEach(ingredient => {
+    let promise = knex('foods').where({name : ingredient.name})
+    promises.push(promise)
+  })
+  return Promise.all(promises)
+    .then(results => {
+      let matches = results.filter(result => {
+        if(result.length) return result
+      })
+      matches.forEach(match => {
+        let ingredientData = recipeIngredients.find(ingredient => ingredient.name === match[0].name)
+        match[0].id = ingredientData.id
+      })
+      return matches
+    })
+}
+
+module.exports = {getAllFoods, sortBy, getOneFood, createFood, updateFood, destroyFood, getAllRecipes, createRecipe, getOneRecipe, updateRecipe, destroyRecipe, searchFood, createIngredient, getPerishable, searchForIngredients}
