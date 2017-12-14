@@ -4,6 +4,7 @@ const db = path.join(__dirname, '..', 'db', `${env}.json`)
 const knex = require('../db/db.js')
 const sorter = require('./sorter.js')
 
+// We should separate out the different resources to their own folder!
 function getAllFoods() {
   return knex('foods')
 }
@@ -44,7 +45,7 @@ const sortBy = {
 }
 
 function searchFood(ingredient){
-  let promises = [knex('foods').where({name: ingredient.name}), knex('ingredients')]
+  // Doesn't look like this line is getting used
   return knex('foods')
     .join('ingredients', 'foods.name', 'ingredients.name')
     .select('ingredients.id')
@@ -59,11 +60,14 @@ function createRecipe(data){
 }
 
 function getOneRecipe(searchID){
-  const promises = [knex('recipes').where({id : searchID}).first(),
-  knex('ingredients'), knex('ingredient_recipe').where({recipe_id: searchID})]
+  const promises = [
+    knex('recipes').where({id : searchID}).first(),
+    knex('ingredients'), 
+    knex('ingredient_recipe').where({recipe_id: searchID})
+  ]
   return Promise.all(promises)
     .then(dataForOneRecipe => {
-      [recipe, ingredients, ingredientRecipeJoin] = dataForOneRecipe
+      let [recipe, ingredients, ingredientRecipeJoin] = dataForOneRecipe
       recipe.ingredients = []
       ingredientRecipeJoin.forEach(ingredient => {
         recipe.ingredients.push(ingredient)
