@@ -1,3 +1,5 @@
+// Instead of putting this as a model, maybe it'd make more sense as a 
+// function inside of a model or inside of a lib/ directory.
 function categories(data){
   const foodCategories = {
     fruit: [],
